@@ -1,15 +1,19 @@
 import time
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+
 
 @pytest.fixture(scope="module")
 
 def browser():
     # Configuração do webdriver
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    driver = webdriver.Chrome(options=chrome_options)
+    service=Service(executable_path="/usr/bin/chromedriver")
+    driver=webdriver.Chrome(service=service, options=chrome_options)
 
     yield driver
     driver.quit()
